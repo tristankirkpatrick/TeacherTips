@@ -12,7 +12,7 @@
 }
 .slider-slide {
   padding-top: 80px;
-  background: url('../img/blurry-app-bg.png') no-repeat center top;
+  background: url('../img/IntroBackground.png') no-repeat center top;
   background-size: cover;
   text-align: center;
 }
@@ -27,7 +27,7 @@
 
 .slide-content h3 {
 	color: #fff;
-	margin-bottom: 40px;
+	margin-bottom: 250px;
 }
 
 /** Posts **/
@@ -103,4 +103,9 @@
 }
 .post .item-body p a {
   text-decoration: underline;
+}
+
+.title-image {
+    margin-top: 8px;
+    height: 27px;
 }

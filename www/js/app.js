@@ -63,16 +63,16 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
- /* .state('app.singlepost', {
-    url: "/singlepost",
+ .state('app.tip', {
+    url: "/tip",
     views: {
       'menuContent': {
-        templateUrl: "templates/singlepost.html",
-        controller: 'SinglePostCtrl'
+        templateUrl: "templates/tip.html",
+        controller: 'TipCtrl'
       }
     }
   })
-*/
+
   .state('app.bookmarks', {
     url: "/bookmarks",
     views: {

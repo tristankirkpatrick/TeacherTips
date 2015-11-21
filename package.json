@@ -1,7 +1,7 @@
 {
   "name": "TeacherTips",
   "version": "1.0.0",
-  "description": "wpIonic: An Ionic project",
+  "description": "A tip a day for the busy teacher",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",

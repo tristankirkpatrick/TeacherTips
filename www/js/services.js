@@ -14,6 +14,17 @@ angular.module('wpIonic.services', [])
 
 })
 
+.factory('TipLoader', function( $http ) {
+
+  return {
+    get: function(url) {
+      // Simple index lookup
+      return $http.jsonp( url );
+    }
+  }
+
+})
+
 .factory('Bookmark', function( CacheFactory ) {
 
   if ( ! CacheFactory.get('bookmarkCache') ) {

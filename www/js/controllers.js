@@ -6,6 +6,7 @@ angular.module('wpIonic.controllers', [])
   $rootScope.url = 'http://scottbolinger.com/wp-json/wp/v2/';
 
   $rootScope.callback = '_jsonp=JSON_CALLBACK';
+  $rootScope.tip = 'http://scottbolinger.com/wp-json/wp/v2/posts?_jsonp=JSON_CALLBACK&c‌​allback=JSON_CALLBACK';
 
 })
 
@@ -229,4 +230,70 @@ angular.module('wpIonic.controllers', [])
 
   // Tabs stuff here
 
+})
+
+.controller('TipCtrl', function($scope, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
+
+  if ( ! CacheFactory.get('postCache') ) {
+    CacheFactory.createCache('postCache');
+  }
+
+  var postCache = CacheFactory.get( 'postCache' );
+
+  $scope.itemID = $stateParams.postId;
+
+  var tipPostApi = $rootScope.url + 'posts/' + '735' + '?_embed&' + $rootScope.callback;
+
+  $scope.loadPost = function() {
+
+    // Fetch remote post
+
+    $ionicLoading.show({
+      noBackdrop: false
+    });
+
+    TipLoader.get( tipPostApi ).then(function(response) {
+      $scope.post = response.data;
+
+      // Don't strip post html
+      $scope.content = $sce.trustAsHtml(response.data.content.rendered);
+
+      $scope.comments = $scope.post._embedded['replies'][0];
+
+      // add post to our cache
+      postCache.put( response.data.id, response.data );
+      console.log(response.data);
+
+      $ionicLoading.hide();
+    }, function(response) {
+      $log.error('error', response);
+      $ionicLoading.hide();
+    });
+
+  }
+
+
+
+    // Item is not in cache, go get it
+    $scope.loadPost();
+
+  
+  
+  // Bookmarking
+  $scope.bookmarked = Bookmark.check( $scope.itemID );
+
+  $scope.bookmarkItem = function( id ) {
+    
+    if( $scope.bookmarked ) {
+      Bookmark.remove( id );
+      $scope.bookmarked = false;
+    } else {
+      Bookmark.set( id );
+      $scope.bookmarked = true;
+    }
+  }
+
+
+
 });
+

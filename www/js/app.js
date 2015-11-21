@@ -63,15 +63,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
- .state('app.tip', {
-    url: "/tip",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/tip.html",
-        controller: 'TipCtrl'
-      }
-    }
-  })
 
   .state('app.bookmarks', {
     url: "/bookmarks",
@@ -112,6 +103,17 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
+
+  .state('app.tip', {
+    url: "/tip",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/tip.html",
+        controller: 'TipCtrl'
+      }
+    }
+  })
+
   .state('app.settings', {
       url: "/settings",
       views: {
@@ -120,6 +122,8 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
         }
       }
     });
+
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/intro');
 });

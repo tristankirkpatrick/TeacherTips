@@ -210,7 +210,7 @@ angular.module('wpIonic.controllers', [])
  
   // Called to navigate to the main app
   $scope.startApp = function() {
-    $state.go('app.posts');
+    $state.go('app.tip');
   };
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();

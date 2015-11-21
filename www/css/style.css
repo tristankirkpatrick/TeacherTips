@@ -9,24 +9,38 @@
 
 .slider {
   height: 100%;
+  color: #000;
 }
+
+.slider p{
+  color: #000;
+}
+
 .slider-slide {
   padding-top: 80px;
-  background: url('../img/IntroBackground.png') no-repeat center top;
+  background-color: #fff;
   background-size: cover;
   text-align: center;
 }
 
 .slide-content {
 	position: absolute;
-	bottom: 200px;
+	bottom: 20%;
 	width: 100%;
 	padding: 20px;
 	box-sizing: border-box;
 }
 
+.sliderlogo {
+  position: absolute;
+  bottom: 100px;
+  max-width: 150px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 .slide-content h3 {
-	color: #fff;
+	color: #5852A3;
 	margin-bottom: 40px;
 }
 
@@ -108,4 +122,10 @@
 .title-image {
     margin-top: 8px;
     height: 27px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }

@@ -1,6 +1,6 @@
-# wpIonic
+# TeacherTips
 
-A mobile app that uses the Ionic Framework, and integrates with WordPress through the WP-API.
+A mobile app for daily tips for teachers that integrates with WordPress through the WP-API.
 
 Features:
 

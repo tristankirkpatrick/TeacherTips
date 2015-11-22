@@ -29,5 +29,13 @@ $dark:                            #394A95 !default;
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 $font-family-base: "Montserrat", sans-serif !default;
 
+$tabs-text-font-size:             24px !default;
+$tabs-height:                     85px !default;
+$tabs-icon-size:                  40px !default;
+$tabs-text-font-size-side-icon:   16px !default;
+
+
+
+
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";

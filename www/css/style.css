@@ -234,3 +234,8 @@
     margin-right: auto;
     display: block;
 }
+
+.bottombar {
+  font-size: 16px;
+  color: #fff;
+}

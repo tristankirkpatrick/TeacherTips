@@ -1,7 +1,7 @@
 <ion-view>
-	<ion-nav-title>
-  {{::post.title.rendered}}
-	</ion-nav-title>
+  <ion-nav-title>
+  Today's Teacher Tip
+  </ion-nav-title>
   <ion-content class="padding">
   <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
@@ -13,7 +13,7 @@
           <div class="list">
 
               <a class="item item-icon-right item-thumbnail-left" href="http://twitter.com/{{post.authortwitter[0]}}">
-                <img src="{{post.better_featured_image.source_url}}">
+                <img src="{{post.authorpic[0]}}">
                 </br><h2>{{post.authorname[0]}}</h2>
                 <p>@{{post.authortwitter[0]}}</p>
                  <i class="icon ion-chevron-right icon-accessory"></i>
@@ -26,18 +26,18 @@
 
 
     <div class="card post">
-  		<div class="item post-title">
-  		<h2 ng-bind-html="post.title.rendered"></h2>
-  		</div>
-  		<div class="item item-body" ng-bind-html="content | html_filters"></div>
+      <div class="item post-title">
+      <h2 ng-bind-html="post.title.rendered"></h2>
+      </div>
+      <div class="item item-body" ng-bind-html="content | html_filters"></div>
 
 
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
+      <div class="item item-dark tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="http://twitter.com/home/?status={{post.title.rendered}} @{{post.authortwitter[0]}} via @TeacherTipApp">
           <i class="icon ion-forward"></i>
           Share
         </a>
-        <a class="tab-item" href="#" ng-click="bookmarkItem(post.id)">
+        <a class="tab-item large bottom-bar" href="#" ng-click="bookmarkItem(post.id)">
           <i ng-class="{'icon ion-ios-star': bookmarked, 'icon ion-ios-star-outline': !bookmarked}"></i>
           Bookmark
         </a>

@@ -4,10 +4,26 @@
 	</ion-nav-title>
   <ion-content class="padding">
   <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-  	
-    <div class="card">
-    <h3>{{post.author}} - {{post.id}}</h3>
-    </div>
+
+
+    <ion-list>
+      
+
+
+          <div class="list">
+
+              <a class="item item-icon-right item-thumbnail-left" href="http://twitter.com/{{post.authortwitter[0]}}">
+                <img src="{{post.better_featured_image.source_url}}">
+                </br><h2>{{post.authorname[0]}}</h2>
+                <p>@{{post.authortwitter[0]}}</p>
+                 <i class="icon ion-chevron-right icon-accessory"></i>
+              </a>
+
+          </div>
+
+    </ion-item>
+      </ion-list>
+
 
     <div class="card post">
   		<div class="item post-title">

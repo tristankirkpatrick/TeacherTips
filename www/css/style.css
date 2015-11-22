@@ -99,6 +99,11 @@
 }
 
 
+.tipmenu {
+  font-weight: 700;
+}
+
+
 /* Empty. Add your own CSS if you like */
 .item-content p.post-excerpt {
 	white-space: wrap;
@@ -134,10 +139,10 @@
 
 .sliderlogo {
   position: absolute;
+  margin-top: 100px
   bottom: 100px;
   max-width: 150px;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .slide-content h3 {

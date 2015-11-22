@@ -3,10 +3,10 @@ angular.module('wpIonic.controllers', [])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $sce, DataLoader, $rootScope ) {
   
   // Enter your site url here. You must have the WP-API v2 installed on this site. Leave /wp-json/wp/v2/ at the end.
-  $rootScope.url = 'http://scottbolinger.com/wp-json/wp/v2/';
+  $rootScope.url = 'http://teachthemtocode.com/teachertips/wp-json/wp/v2/';
 
   $rootScope.callback = '_jsonp=JSON_CALLBACK';
-  $rootScope.tip = 'http://scottbolinger.com/wp-json/wp/v2/posts?_jsonp=JSON_CALLBACK&c‌​allback=JSON_CALLBACK';
+  $rootScope.tip = 'http://teachthemtocode.com/teachertips/wp-json/wp/v2/posts?_jsonp=JSON_CALLBACK&c‌​allback=JSON_CALLBACK';
 
 })
 
@@ -36,7 +36,7 @@ angular.module('wpIonic.controllers', [])
       // Don't strip post html
       $scope.content = $sce.trustAsHtml(response.data.content.rendered);
 
-      $scope.comments = $scope.post._embedded['replies'][0];
+    //  $scope.comments = $scope.post._embedded['replies'][0];
 
       // add post to our cache
       postCache.put( response.data.id, response.data );
@@ -58,7 +58,7 @@ angular.module('wpIonic.controllers', [])
     // Item exists, use cached item
     $scope.post = postCache.get( $scope.itemID );
     $scope.content = $sce.trustAsHtml( $scope.post.content.rendered );
-    $scope.comments = $scope.post._embedded['replies'][0];
+  //  $scope.comments = $scope.post._embedded['replies'][0];
   }
 
   // Bookmarking
@@ -210,7 +210,7 @@ angular.module('wpIonic.controllers', [])
  
   // Called to navigate to the main app
   $scope.startApp = function() {
-    $state.go('app.tip');
+    $state.go('app.posts');
   };
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
@@ -242,7 +242,7 @@ angular.module('wpIonic.controllers', [])
 
   $scope.itemID = $stateParams.postId;
 
-  var tipPostApi = $rootScope.url + 'posts/' + '735' + '?_embed&' + $rootScope.callback;
+  var tipPostApi = $rootScope.url + 'posts/' + '10' + '?_embed&' + $rootScope.callback;
 
   $scope.loadPost = function() {
 
@@ -258,7 +258,7 @@ angular.module('wpIonic.controllers', [])
       // Don't strip post html
       $scope.content = $sce.trustAsHtml(response.data.content.rendered);
 
-      $scope.comments = $scope.post._embedded['replies'][0];
+   //   $scope.comments = $scope.post._embedded['replies'][0];
 
       // add post to our cache
       postCache.put( response.data.id, response.data );

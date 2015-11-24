@@ -1,4 +1,9 @@
 <ion-view view-title='<img class="title-image" src="img/header.png" />'>
+<ion-nav-bar>
+  <ion-nav-back-button class="button-clear">
+    <i class="ion-arrow-left-c"></i> 
+  </ion-nav-back-button>
+</ion-nav-bar>
   <ion-slide-box on-slide-changed="slideChanged(index)">
     <ion-slide>
       <div class="slide-content">
@@ -19,6 +24,8 @@
         <img src="img/logo.png" class="center sliderlogo" >
         
          <form ng-controller="LoginCtrl">
+            
+
             <ion-list>
                 <label class="item item-input">
                     <span class="input-label">Username</span>

@@ -236,6 +236,12 @@ angular.module('wpIonic.controllers', [])
  
   $scope.data = {};
  
+  function MyCtrl($scope, $ionicHistory) {
+  $scope.myGoBack = function() {
+    $ionicHistory.goBack();
+  };
+}
+ 
   $scope.signupEmail = function(){
  
   //Create a new user on Parse

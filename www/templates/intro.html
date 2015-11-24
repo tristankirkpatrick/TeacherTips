@@ -17,10 +17,25 @@
     <ion-slide>
       <div class="slide-content">
         <img src="img/logo.png" class="center sliderlogo" >
-        <h3>We're trying to simplify things. Check it in the morning, change lives all day.</h3>
-        <button class="button button-block button-energized" ng-click="startApp()">
-          Show me today's TeacherTip
-        </button>
+        
+         <form ng-controller="LoginCtrl">
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="enter your username..." ng-model="data.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="enter your password..." ng-model="data.password">
+                </label>
+            </ion-list>
+            <button class="button button-energized button-block" ng-click="loginEmail()">Done</button>
+        </form>
+
+        <a href = "#/app/signup" class="button button-dark" style="width: 100%; margin: 20px 0;">
+        Or Sign Up
+      </a>
+ 
       </div>
     </ion-slide>
   </ion-slide-box>

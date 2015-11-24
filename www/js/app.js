@@ -17,6 +17,10 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // Parse Initialise
+    Parse.initialize("n6faJNEJOLeW4FNV43VDtQLatqHatww4afA3LNJw", "IBjQSy0LIkSAj55v9PjOqAoN6WBTxErMXFZ7PNzC");
+
   });
 })
 
@@ -110,6 +114,37 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
       'menuContent': {
         templateUrl: "templates/tip.html",
         controller: 'TipCtrl'
+      }
+    }
+  })
+
+  .state('app.signup', {
+    url: "/signup",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/signup.html",
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+
+    .state('app.signin', {
+    url: "/signin",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/signin.html",
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+
+
+  .state('app.login', {
+    url: "/login",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/login.html",
+        controller: 'LoginCtrl'
       }
     }
   })

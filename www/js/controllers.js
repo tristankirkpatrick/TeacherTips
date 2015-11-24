@@ -232,6 +232,54 @@ angular.module('wpIonic.controllers', [])
 
 })
 
+.controller('LoginCtrl', function($scope, $state) {
+ 
+  $scope.data = {};
+ 
+  $scope.signupEmail = function(){
+ 
+  //Create a new user on Parse
+  var user = new Parse.User();
+  user.set("username", $scope.data.username);
+  user.set("password", $scope.data.password);
+  user.set("email", $scope.data.email);
+ 
+  // other fields can be set just like with Parse.Object
+  user.set("somethingelse", "like this!");
+ 
+  user.signUp(null, {
+    success: function(user) {
+      // Hooray! Let them use the app now.
+      $state.go('app.tip');
+      alert("success!");
+    },
+    error: function(user, error) {
+      // Show the error message somewhere and let the user try again.
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
+ 
+};
+ 
+  $scope.loginEmail = function(){
+  Parse.User.logIn($scope.data.username, $scope.data.password, {
+    success: function(user) {
+      // Do stuff after successful login.
+
+      console.log(user);
+
+      alert("success!");
+      $state.go('app.tip');
+    },
+    error: function(user, error) {
+      // The login failed. Check error to see why.
+      alert("error!");
+    }
+  });
+};
+ 
+})
+
 .controller('TipCtrl', function($scope, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
 
   if ( ! CacheFactory.get('postCache') ) {

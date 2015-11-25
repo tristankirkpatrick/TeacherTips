@@ -380,7 +380,7 @@ angular.module('wpIonic.controllers', [])
                 $rootScope.user = user;
                 $rootScope.isLoggedIn = true;
                 $state.go('app.tip', {
-                    clear: true
+                    clear: false
                 });
             },
             error: function(user, error) {

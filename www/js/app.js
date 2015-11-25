@@ -157,6 +157,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
             if (currentUser) {
                 $rootScope.user = currentUser;
                 $rootScope.isLoggedIn = true;
-                $state.go('app.login');
+                $state.go('app.tip');
         }
     });

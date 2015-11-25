@@ -6,24 +6,6 @@
 // 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
 angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-
-    // Parse Initialise
-    Parse.initialize("n6faJNEJOLeW4FNV43VDtQLatqHatww4afA3LNJw", "IBjQSy0LIkSAj55v9PjOqAoN6WBTxErMXFZ7PNzC");
-
-  });
-})
-
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, CacheFactoryProvider) {
 
   angular.extend(CacheFactoryProvider.defaults, { 
@@ -39,15 +21,10 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   $stateProvider
 
   // sets up our default state, all views are loaded through here
-  .state('app', {
-    url: "/app",
-    abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
+  
 
-  .state('app.intro', {
-    url: "/intro",
+   .state('app.intro', {
+    url: "/intro?clear",
     views: {
       'menuContent': {
         templateUrl: "templates/intro.html",
@@ -55,6 +32,16 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
       }
     }
   })
+
+
+  .state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
+  })
+
+
 
   // this is the first sub view, notice menuContent under 'views', which is loaded through menu.html
   .state('app.posts', {
@@ -118,47 +105,58 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  .state('app.signup', {
-    url: "/signup",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/signup.html",
-        controller: 'LoginCtrl'
-      }
-    }
-  })
-
-    .state('app.signin', {
-    url: "/signin",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/signin.html",
-        controller: 'LoginCtrl'
-      }
-    }
-  })
-
-
-  .state('app.login', {
-    url: "/login",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/login.html",
-        controller: 'LoginCtrl'
-      }
-    }
-  })
-
-  .state('app.settings', {
-      url: "/settings",
+   .state('app.login', {
+      url: '/login',
       views: {
-        'menuContent': {
-          templateUrl: "templates/settings.html"
-        }
+          'menuContent': {
+              templateUrl: 'templates/login.html',
+              controller: 'LoginCtrl'
+          }
       }
-    });
+  })
+
+  .state('app.forgot', {
+      url: '/forgot',
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/forgotPassword.html',
+              controller: 'ForgotPasswordController'
+          }
+      }
+  })
+
+  .state('app.register', {
+      url: '/register',
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/register.html',
+              controller: 'RegisterController'
+          }
+      }
+  });
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/intro');
-});
+  $urlRouterProvider.otherwise('app/intro');
+})
+
+.run(function ($state, $rootScope, $ionicPlatform) {
+
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        }
+        if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleDefault();
+        }
+          Parse.initialize("n6faJNEJOLeW4FNV43VDtQLatqHatww4afA3LNJw", "IBjQSy0LIkSAj55v9PjOqAoN6WBTxErMXFZ7PNzC");
+          var currentUser = Parse.User.current();
+          $rootScope.user = null;
+          $rootScope.isLoggedIn = false;
+
+            if (currentUser) {
+                $rootScope.user = currentUser;
+                $rootScope.isLoggedIn = true;
+                $state.go('app.login');
+        }
+    });

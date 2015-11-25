@@ -1,6 +1,6 @@
 angular.module('wpIonic.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $sce, DataLoader, $rootScope ) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $sce, DataLoader, $rootScope, $ionicHistory, $stateParams ) {
   
   // Enter your site url here. You must have the WP-API v2 installed on this site. Leave /wp-json/wp/v2/ at the end.
   $rootScope.url = 'http://teachthemtocode.com/teachertips/wp-json/wp/v2/';
@@ -8,7 +8,22 @@ angular.module('wpIonic.controllers', [])
   $rootScope.callback = '_jsonp=JSON_CALLBACK';
   $rootScope.tip = 'http://teachthemtocode.com/teachertips/wp-json/wp/v2/posts?_jsonp=JSON_CALLBACK&c‌​allback=JSON_CALLBACK';
 
+ if ($stateParams.clear) {
+        $ionicHistory.clearHistory();
+        $ionicHistory.clearCache();
+    }
+
+    $scope.logout = function() {
+        Parse.User.logOut();
+        $rootScope.user = null;
+        $rootScope.isLoggedIn = false;
+        $state.go('intro', {
+            clear: true
+        });
+    };
+
 })
+
 
 .controller('PostCtrl', function($scope, $stateParams, DataLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
 
@@ -200,7 +215,25 @@ angular.module('wpIonic.controllers', [])
     
 })
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicHistory) {
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicHistory, $rootScope, $ionicHistory, $stateParams) {
+
+  
+   if ($stateParams.clear) {
+        $ionicHistory.clearHistory();
+        $ionicHistory.clearCache();
+    }
+
+    $scope.login = function() {
+        $state.go('app.login');
+    };
+
+    $scope.signUp = function() {
+        $state.go('app.register');
+    };
+
+    if ($rootScope.isLoggedIn) {
+        $state.go('app.tip');
+    }
 
   // $ionicSlideBoxDelegate.update();
 
@@ -209,9 +242,7 @@ angular.module('wpIonic.controllers', [])
   });
  
   // Called to navigate to the main app
-  $scope.startApp = function() {
-    $state.go('app.tip');
-  };
+
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
   };
@@ -232,61 +263,148 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('LoginCtrl', function($scope, $state) {
- 
-  $scope.data = {};
- 
-  function MyCtrl($scope, $ionicHistory) {
-  $scope.myGoBack = function() {
-    $ionicHistory.goBack();
-  };
-}
- 
-  $scope.signupEmail = function(){
- 
-  //Create a new user on Parse
-  var user = new Parse.User();
-  user.set("username", $scope.data.username);
-  user.set("password", $scope.data.password);
-  user.set("email", $scope.data.email);
- 
-  // other fields can be set just like with Parse.Object
-  user.set("somethingelse", "like this!");
- 
-  user.signUp(null, {
-    success: function(user) {
-      // Hooray! Let them use the app now.
-      $state.go('app.tip');
-      alert("success!");
-    },
-    error: function(user, error) {
-      // Show the error message somewhere and let the user try again.
-      alert("Error: " + error.code + " " + error.message);
-    }
-  });
- 
-};
- 
-  $scope.loginEmail = function(){
-  Parse.User.logIn($scope.data.username, $scope.data.password, {
-    success: function(user) {
-      // Do stuff after successful login.
+// Parse - just email login
 
-      console.log(user);
-
-      alert("success!");
-      $state.go('app.tip');
-    },
-    error: function(user, error) {
-      // The login failed. Check error to see why.
-      alert("error!");
-    }
-  });
-};
+.controller('LoginCtrl', function($scope, $state, $rootScope, $ionicLoading) {
  
+  $scope.user = {
+          username: null,
+          password: null
+      };
+
+      $scope.error = {};
+
+      $scope.login = function() {
+          $scope.loading = $ionicLoading.show({
+              content: 'Logging in',
+              animation: 'fade-in',
+              showBackdrop: true,
+              maxWidth: 200,
+              showDelay: 0
+          });
+
+          var user = $scope.user;
+          Parse.User.logIn(('' + user.username).toLowerCase(), user.password, {
+              success: function(user) {
+                  $ionicLoading.hide();
+                  $rootScope.user = user;
+                  $rootScope.isLoggedIn = true;
+                  $state.go('app.tip', {
+                      clear: true
+                  });
+              },
+              error: function(user, err) {
+                  $ionicLoading.hide();
+                  // The login failed. Check error to see why.
+                  if (err.code === 101) {
+                      $scope.error.message = 'Invalid login credentials';
+                  } else {
+                      $scope.error.message = 'An unexpected error has ' +
+                          'occurred, please try again.';
+                  }
+                  $scope.$apply();
+              }
+          });
+      };
+
+      $scope.forgot = function() {
+          $state.go('app.forgot');
+      };
+})
+
+.controller('ForgotPasswordController', function($scope, $state, $ionicLoading) {
+    $scope.user = {};
+    $scope.error = {};
+    $scope.state = {
+        success: false
+    };
+
+    $scope.reset = function() {
+        $scope.loading = $ionicLoading.show({
+            content: 'Sending',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
+
+        Parse.User.requestPasswordReset($scope.user.email, {
+            success: function() {
+                // TODO: show success
+                $ionicLoading.hide();
+                $scope.state.success = true;
+                $scope.$apply();
+            },
+            error: function(err) {
+                $ionicLoading.hide();
+                if (err.code === 125) {
+                    $scope.error.message = 'Email address does not exist';
+                } else {
+                    $scope.error.message = 'An unknown error has occurred, ' +
+                        'please try again';
+                }
+                $scope.$apply();
+            }
+        });
+    };
+
+    $scope.login = function() {
+        $state.go('app.login');
+    };
+})
+
+.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope) {
+    $scope.user = {};
+    $scope.error = {};
+
+    $scope.register = function() {
+
+        // TODO: add age verification step
+
+        $scope.loading = $ionicLoading.show({
+            content: 'Sending',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
+
+        var user = new Parse.User();
+        user.set("username", $scope.user.email);
+        user.set("password", $scope.user.password);
+        user.set("email", $scope.user.email);
+
+        user.signUp(null, {
+            success: function(user) {
+                $ionicLoading.hide();
+                $rootScope.user = user;
+                $rootScope.isLoggedIn = true;
+                $state.go('app.tip', {
+                    clear: true
+                });
+            },
+            error: function(user, error) {
+                $ionicLoading.hide();
+                if (error.code === 125) {
+                    $scope.error.message = 'Please specify a valid email ' +
+                        'address';
+                } else if (error.code === 202) {
+                    $scope.error.message = 'The email address is already ' +
+                        'registered';
+                } else {
+                    $scope.error.message = error.message;
+                }
+                $scope.$apply();
+            }
+        });
+    };
 })
 
 .controller('TipCtrl', function($scope, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
+
+  if (!$rootScope.isLoggedIn) {
+        $state.go('tip');
+    }
 
   if ( ! CacheFactory.get('postCache') ) {
     CacheFactory.createCache('postCache');

@@ -25,6 +25,15 @@
                     <span class="input-label">Password</span>
                     <input type="password" placeholder="At least 6 characters" ng-model="data.password">
                 </label>
+                <li class="item item-toggle">
+                         Are you a classroom teacher?
+                         <label class="toggle toggle-assertive">
+                           <input type="checkbox" ng-model="data.currentteacher">
+                           <div class="track">
+                             <div class="handle"></div>
+                           </div>
+                         </label>
+                      </li>
             </ion-list>
             <button class="button button-dark button-block" ng-click="signupEmail()">Done</button>
         </form>

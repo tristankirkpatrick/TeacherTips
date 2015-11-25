@@ -137,7 +137,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('app/intro');
+  $urlRouterProvider.otherwise('app/tip');
 })
 
 .run(function ($state, $rootScope, $ionicPlatform) {

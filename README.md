@@ -10,6 +10,7 @@ A mobile app for daily tips for teachers that integrates with WordPress through 
 - Use "featured post" in Wordpress and only show featured. This will allow us to RSS syndicate popular teacher tip websites and simply tick 'featured post' to display on the app.
 - Refresh time-out on the bookmarks screen.
 - Terms and Conditions modal
+- Push notifications with Parse
 
 ## Wishlist
 

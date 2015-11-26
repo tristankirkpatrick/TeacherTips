@@ -22,6 +22,12 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
 
   // sets up our default state, all views are loaded through here
   
+   .state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
+  })
 
    .state('app.intro', {
     url: "/intro?clear",
@@ -33,16 +39,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-
-  .state('app', {
-    url: "/app",
-    abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-
-
   // this is the first sub view, notice menuContent under 'views', which is loaded through menu.html
   .state('app.posts', {
     url: "/posts",
@@ -50,17 +46,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
       'menuContent': {
         templateUrl: "templates/posts.html",
         controller: 'PostsCtrl'
-      }
-    }
-  })
-
-
-  .state('app.bookmarks', {
-    url: "/bookmarks",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/bookmarks.html",
-        controller: 'BookmarksCtrl'
       }
     }
   })
@@ -84,16 +69,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     }
   })
 
-  .state('app.tabs', {
-    url: "/tabs",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/tabs.html",
-        controller: 'TabsCtrl'
-      }
-    }
-  })
-
 
   .state('app.tip', {
     url: "/tip",
@@ -101,6 +76,16 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
       'menuContent': {
         templateUrl: "templates/tip.html",
         controller: 'TipCtrl'
+      }
+    }
+  })
+
+   .state('app.bookmarks', {
+    url: "/bookmarks",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/bookmarks.html",
+        controller: 'BookmarksCtrl'
       }
     }
   })

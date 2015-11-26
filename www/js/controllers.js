@@ -106,6 +106,8 @@ angular.module('wpIonic.controllers', [])
 
 })
 
+
+// List of previous tips
 .controller('PostsCtrl', function( $scope, $http, DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
 
   var postsApi = $rootScope.url + 'posts?' + $rootScope.callback;
@@ -257,11 +259,6 @@ angular.module('wpIonic.controllers', [])
 
 })
 
-.controller('TabsCtrl', function($scope) {
-
-  // Tabs stuff here
-
-})
 
 // Parse - just email login
 
@@ -353,7 +350,7 @@ angular.module('wpIonic.controllers', [])
     };
 })
 
-.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope) {
+.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope, $ionicHistory) {
     $scope.user = {};
     $scope.error = {};
 
@@ -400,7 +397,7 @@ angular.module('wpIonic.controllers', [])
     };
 })
 
-.controller('TipCtrl', function($scope, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
+.controller('TipCtrl', function($scope, $state, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
 
   if (!$rootScope.isLoggedIn) {
         $state.go('tip');
@@ -462,6 +459,7 @@ angular.module('wpIonic.controllers', [])
     } else {
       Bookmark.set( id );
       $scope.bookmarked = true;
+      $state.go('app.bookmarks');
     }
   }
 

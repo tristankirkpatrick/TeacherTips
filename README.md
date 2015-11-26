@@ -14,6 +14,6 @@ A mobile app for daily tips for teachers that integrates with WordPress through 
 
 ## Wishlist
 
-- Get pop up images working 
+- Get pop up images working (http://codepen.io/rdelafuente/pen/tJrik)
 - Authenticate with Twitter/Facebook
 - Test offline

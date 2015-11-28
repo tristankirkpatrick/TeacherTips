@@ -1,7 +1,7 @@
 <ion-view view-title="Posts">
   <ion-content>
   <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-	<ion-list>
+	<ion-list class="the-content">
 		<ion-item class="item-icon-right item-thumbnail-left" ng-repeat="post in posts track by $index" href="#/app/posts/{{post.id}}" track>
 			 
 

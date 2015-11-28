@@ -106,6 +106,25 @@ angular.module('wpIonic.controllers', [])
 
 })
 
+.directive('elasticImage', function($ionicScrollDelegate) {
+  return {
+    restrict: 'A',
+    link: function($scope, $scroller, $attr) {
+      var image = document.getElementById($attr.elasticImage);
+      var imageHeight = image.offsetHeight;
+      
+      $scroller.bind('scroll', function(e) {
+        var scrollTop = e.detail.scrollTop;
+        var newImageHeight = imageHeight - scrollTop;
+        if (newImageHeight < 0) {
+          newImageHeight = 0;
+        }
+        image.style.height = newImageHeight + 'px';
+      });
+    }
+  }
+})
+
 
 // List of previous tips
 .controller('PostsCtrl', function( $scope, $http, DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
@@ -309,7 +328,7 @@ angular.module('wpIonic.controllers', [])
       };
 })
 
-.controller('ForgotPasswordController', function($scope, $state, $ionicLoading) {
+.controller('ForgotPasswordController', function($scope, $state, $ionicLoading, $ionicHistory) {
     $scope.user = {};
     $scope.error = {};
     $scope.state = {
@@ -350,7 +369,7 @@ angular.module('wpIonic.controllers', [])
     };
 })
 
-.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope, $ionicHistory) {
+.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope) {
     $scope.user = {};
     $scope.error = {};
 
@@ -397,10 +416,13 @@ angular.module('wpIonic.controllers', [])
     };
 })
 
-.controller('TipCtrl', function($scope, $state, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout ) {
+.controller('TipCtrl', function($scope, $state, $stateParams, TipLoader, $ionicLoading, $rootScope, $sce, CacheFactory, $log, Bookmark, $timeout, $ionicBackdrop ) {
 
   if (!$rootScope.isLoggedIn) {
         $state.go('tip');
+         $ionicLoading.show({
+          template: 'Loading...'
+    });
     }
 
   if ( ! CacheFactory.get('postCache') ) {
@@ -411,7 +433,7 @@ angular.module('wpIonic.controllers', [])
 
   $scope.itemID = $stateParams.postId;
 
-  var tipPostApi = $rootScope.url + 'posts/' + '10' + '?_embed&' + $rootScope.callback;
+  var tipPostApi = $rootScope.url + 'posts/' + '103' + '?_embed&' + $rootScope.callback;
 
   $scope.loadPost = function() {
 

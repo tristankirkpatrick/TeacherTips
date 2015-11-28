@@ -1,8 +1,11 @@
-
-.tipmenu {
-  font-weight: 400;
+.title {
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
+.tipmenu {
+  text-transform: capitalize;
+}
 
 /* Empty. Add your own CSS if you like */
 .item-content p.post-excerpt {
@@ -42,9 +45,13 @@
   padding: 10px;
 }
 
+.menutip {
+   text-transform: uppercase;
+}
+
 .slide-content h3 {
 	color: #5852A3;
-	margin-bottom: 5%;
+	margin-bottom: 35%;
   font-weight: 570;
 }
 
@@ -54,6 +61,7 @@
 	overflow: visible;
 	white-space: normal;
 	font-weight: bold;
+   text-transform: uppercase;
 }
 .post .item-author {
     border: none;
@@ -174,4 +182,48 @@
     background-color: #000;
     opacity: 0;
   }
+}
+
+
+/* tip elastic image */
+.elastic-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 44px;
+  /* Initial image height: */
+  height: 300px;
+
+}
+
+.the-content {
+  /* Same as initial image height: */
+  padding-top: 300px;
+}
+
+.blur {
+
+    filter: grayscale(20%);
+    opacity: 1;
+    position: relative; 
+}
+
+.wrapper {
+  position: relative;
+}
+
+.wrapper p {
+  background-color: #272822;
+  bottom: 0%;
+  width: 100%;
+  color: white;
+  font-family: Open Sans, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.95;
+  font-size: 2em;
+  text-align: center;
+  padding: 0.40em 0.80em;
+  position: absolute;
+  line-height: 2em;
 }

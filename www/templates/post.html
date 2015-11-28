@@ -1,11 +1,11 @@
 <ion-view>
   <ion-nav-title>
-  Today's Teacher Tip
+  Tip
   </ion-nav-title>
   <ion-content class="padding">
   <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-
-
+  <nav-page hide-back-button="true"></nav-page>
+  
     <ion-list>
       
 
@@ -33,7 +33,9 @@
 
 
       <div class="item item-dark tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="http://twitter.com/home/?status={{post.title.rendered}} @{{post.authortwitter[0]}} via @TeacherTipApp">
+        <a class="tab-item" href="https://twitter.com/intent/tweet?
+                                  text={{post.title.rendered}} @{{post.authortwitter[0]}}
+                                  hashtags=TeacherTipApp">
           <i class="icon ion-forward"></i>
           Share
         </a>

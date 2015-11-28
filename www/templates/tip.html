@@ -1,27 +1,31 @@
 <ion-view>
   <ion-nav-title>
-  Today's Teacher Tip
+  Today's Tip
   </ion-nav-title>
-  <ion-content class="padding">
-  <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-  <nav-page hide-back-button="true"></nav-page>
+        <div class="wrapper">
+        <div id="the-image-id" class="elastic-image blur" style="background-image: url({{post.better_featured_image.source_url}})"></div>
+
+          <p ng-bind-html="post.title.rendered">Loading...</p>
+  </div>
+
+    <ion-content class="padding the-content" elastic-image="the-image-id">
 
     <ion-list>
       
 
 
-          <div class="list">
+      <div class="list" style=" padding-top: 300px;">
+      <div class="text-center padding todaystipheadline"><strong>Today's Tip from:</strong></div>
 
-              <a class="item item-icon-right item-thumbnail-left" href="http://twitter.com/{{post.authortwitter[0]}}">
-                <img src="{{post.authorpic[0]}}">
-                </br><h2>{{post.authorname[0]}}</h2>
-                <p>@{{post.authortwitter[0]}}</p>
-                 <i class="icon ion-chevron-right icon-accessory"></i>
-              </a>
+          <a class="item item-icon-right item-thumbnail-left" href="http://twitter.com/{{post.authortwitter[0]}}">
+            <img src="{{post.authorpic[0]}}">
+            </br><h2 class=>{{post.authorname[0]}}</h2>
+            <p>@{{post.authortwitter[0]}}</p>
+             <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
 
-          </div>
+      </div>
 
-    </ion-item>
       </ion-list>
 
 
@@ -33,7 +37,9 @@
 
 
       <div class="item item-dark tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="twitter://twitter.com/home/?status={{post.title.rendered}} @{{post.authortwitter[0]}} via @TeacherTipApp">
+        <a class="tab-item" href="https://twitter.com/intent/tweet?
+                                  text={{post.title.rendered}} @{{post.authortwitter[0]}}
+                                  hashtags=TeacherTipApp">
           <i class="icon ion-forward"></i>
           Share
         </a>

@@ -4,7 +4,7 @@
 // 'wpIonic' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
-angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
+angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'ionic.service.analytics', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, CacheFactoryProvider) {
 
@@ -125,7 +125,11 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   $urlRouterProvider.otherwise('app/intro');
 })
 
-.run(function ($state, $rootScope, $ionicPlatform) {
+.run(function ($state, $rootScope, $ionicPlatform, $ionicAnalytics) {
+
+        // Added analytics from ionic
+        $ionicAnalytics.register();
+
 
         if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
